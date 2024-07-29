@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
 dotenv.config({ path: envFile });
 
-const httpServer = createServer(app); // app에 있는 DB 연결 부분을 올린다.
+const httpServer = createServer(app); // Express 애플리케이션을 사용하여 HTTP 서버를 생성
 
 const io = new Server(httpServer, {
   // 웹 소켓 서버 생성
@@ -22,7 +22,7 @@ require('./utils/io')(io); // io 매개변수를 io.js에서 가져옴
 
 // MongoDB 연결
 mongoose
-  .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.log(err));
 
