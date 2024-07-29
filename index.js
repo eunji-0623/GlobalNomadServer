@@ -14,7 +14,7 @@ const io = new Server(httpServer, {
   // 웹 소켓 서버 생성
   cors: {
     // 웹 소켓도 app.js 처럼 cors 설정을 해줘야 한다. 허락한 대상만 통신할 수 있도록
-    origin: 'http://localhost:3000', // 프론트엔드 주소
+    origin: 'https://globalnomad-5-8.netlify.app/', // 프론트엔드 주소
   },
 });
 
