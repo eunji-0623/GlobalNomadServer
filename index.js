@@ -14,6 +14,7 @@ const io = new Server(httpServer, {
   // 웹 소켓 서버 생성
   cors: {
     origin: process.env.CORS_ORIGIN, // 프론트엔드 주소
+    methods: ['GET', 'POST'],
   },
 });
 
