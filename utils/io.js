@@ -32,8 +32,7 @@ module.exports = function (io) {
         // 유저 찾아서 메세지 저장
         const user = await userController.checkUser(socket.id);
         const newMessage = await chatController.saveChat(id, message, user);
-        // A로부터 받은 내용을 채팅방에 있는 모든 유저들이 볼 수 있도록 하기 위해 모두에게 보내줘야 한다.
-        io.emit('message', newMessage); // 서버가 프론트에게 소켓을 통해 데이터를 뿌려줌.
+        io.emit('message', newMessage);
         callBack({ ok: true, data: newMessage });
       } catch (error) {
         callBack({ ok: false, data: error.message });
@@ -70,16 +69,17 @@ module.exports = function (io) {
       });
 
       // 메세지 보냈을 때 (글 작성자 -> 이용자)
-      socket.on('sendMessageAdmin', async (activityId, message, senderId, callBack) => {
+      const sendMessageAdminHandler = async (activityId, message, senderId, callBack) => {
         try {
           const newMessage = await chatController.saveChatAdmin(activityId, message, senderId);
-          // A로부터 받은 내용을 채팅방에 있는 모든 유저들이 볼 수 있도록 하기 위해 모두에게 보내줘야 한다.
-          io.emit('message', newMessage); // 서버가 프론트에게 소켓을 통해 데이터를 뿌려줌.
+          io.emit('message', newMessage);
           callBack({ ok: true, data: newMessage });
         } catch (error) {
           callBack({ ok: false, data: error.message });
         }
-      });
+      };
+
+      socket.on('sendMessageAdmin', sendMessageAdminHandler);
     });
 
     // 소켓 연결이 끊겼을 때
