@@ -22,7 +22,7 @@ require('./utils/io')(io); // io 매개변수를 io.js에서 가져옴
 
 // MongoDB 연결
 mongoose
-  .connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.DB)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.log(err));
 
