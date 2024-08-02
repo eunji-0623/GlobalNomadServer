@@ -7,8 +7,8 @@ const userSchema = new mongoose.Schema({
     required: [true, 'User must type id'],
     unique: true,
   },
-  name: { type: String },
-  profile: { type: String },
+  name: { type: String, default: 'unknown' },
+  profile: { type: String, default: '/image/profile-circle-icon-512x512-zxne30hp.png' },
   receiver: { type: [String] },
   role: { type: String },
   token: { type: String }, // 연결 id 정보
