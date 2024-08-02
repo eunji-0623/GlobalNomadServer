@@ -67,20 +67,20 @@ module.exports = function (io) {
           callBack({ ok: false, data: error.message });
         }
       });
-
-      // 메세지 보냈을 때 (글 작성자 -> 이용자)
-      const sendMessageAdminHandler = async (activityId, message, senderId, callBack) => {
-        try {
-          const newMessage = await chatController.saveChatAdmin(activityId, message, senderId);
-          io.emit('message', newMessage);
-          callBack({ ok: true, data: newMessage });
-        } catch (error) {
-          callBack({ ok: false, data: error.message });
-        }
-      };
-
-      socket.on('sendMessageAdmin', sendMessageAdminHandler);
     });
+
+    // 메세지 보냈을 때 (글 작성자 -> 이용자)
+    const sendMessageAdminHandler = async (activityId, message, senderId, callBack) => {
+      try {
+        const newMessage = await chatController.saveChatAdmin(activityId, message, senderId);
+        io.emit('message', newMessage);
+        callBack({ ok: true, data: newMessage });
+      } catch (error) {
+        callBack({ ok: false, data: error.message });
+      }
+    };
+
+    socket.on('sendMessageAdmin', sendMessageAdminHandler);
 
     // 소켓 연결이 끊겼을 때
     socket.on('disconnect', () => {
